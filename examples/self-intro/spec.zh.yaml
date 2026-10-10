@@ -1,0 +1,132 @@
+# amp 讲解 amp：自指示例页的中文版。与 spec.yaml 共用 assets/，默认输出到 out-zh/。
+meta:
+  id: amp-self-intro
+  title: amp · 架构动效单页蓝图
+  lang: zh
+  duration: 24
+  theme: plush-academic
+  seed: 7
+
+header:
+  kicker: "**Claude 技能** · arch-motion-page"
+  meta: v0.1 · 2026 年 10 月
+  title: 架构动效单页蓝图
+  sweep: 动效
+  stamp: { text: "由 amp 生成 · 源自它自己的 spec · ", center: amp }
+  subtitle: 一份 YAML spec 如何变成一张会动的 A4 架构蓝图——以及这一页如何由它所讲解的技能亲手做出。
+
+brand:
+  image: assets/group.png
+  wordmark: amp
+  tagline: 架构 · 动效 · 单页
+  blurb: 一个 Claude 技能：把产品或技术简介编译成一页会动的架构蓝图。
+  stats:
+    - { icon: file, text: "1 份 spec → 3 种产出" }
+    - { icon: timeline, text: "1 条暂停、可定位的时间线" }
+    - { icon: check, text: "0 次读取系统时钟" }
+
+figure:
+  archetype: tiered
+  label: amp 流水线
+  caption: 'amp 流水线。总监读取简介，把任务分派给六位专家；每位专家把成果交给共享底座——spec、主题、布局编译器、一条 GSAP 时间线——最终产出网页、海报和 MP4。虚线是评审回路：评审 HTML、修改 spec、重新构建。'
+  tiers:
+    - nodes:
+        - { id: director, title: 总监, sub: "规划整页，分派团队", hue: blue, mascot: assets/mascots/director.png }
+    - nodes:
+        - { id: researcher, title: 研究员, sub: "阅读文档、代码库与论文", hue: green, mascot: assets/mascots/researcher.png, to: spec }
+        - { id: writer, title: 撰稿人, sub: "撰写标题、图注与正文", hue: yellow, mascot: assets/mascots/writer.png, to: spec }
+        - { id: layout, title: 布局师, sub: "层级变成方框、连线与路径", hue: sky, mascot: assets/mascots/layout.png, to: archetypes }
+        - { id: motion, title: 动效师, sub: "入场构建，加上循环故事", hue: magenta, mascot: assets/mascots/motion.png, to: timeline }
+        - { id: artist, title: 美术, sub: "配色、字体、毛绒吉祥物", hue: orange, mascot: assets/mascots/artist.png, to: themes }
+        - { id: reviewer, title: 评审, sub: "截图、批注、修改", hue: purple, mascot: assets/mascots/reviewer.png, to: outputs }
+    - nodes:
+        - { id: spec, title: spec.yaml, sub: "唯一的事实来源", hue: green, icon: file }
+        - { id: themes, title: 主题, sub: "CSS 变量 + 色相调色板", hue: orange, icon: palette }
+        - { id: archetypes, title: 原型, sub: "纯函数布局编译器", hue: sky, icon: graph }
+        - { id: timeline, title: GSAP 时间线, sub: "一个暂停、可定位的时钟", hue: magenta, icon: timeline }
+        - { id: outputs, title: 产出, sub: "网页 · 海报 · MP4", hue: outcome, outcome: true, mascot: assets/mascots/renderer.png }
+  feedback: { from: outputs, label: "评审回路：评审 → 改 spec → 重建" }
+  bus_label: page.html  ·  poster.png  ·  video.mp4
+
+body:
+  columns:
+    - - type: abstract
+        text: 'amp 把一份产品或技术简介变成一张 A4 架构单页：三秒内自行构建完成，随后以细小而有意义的动效持续“呼吸”。语言模型只写一份精简的 `spec.yaml`；每个坐标、颜色和关键帧都由确定性的编译器负责。同一份源文件产出可交互的 HTML 页面、静态海报和 HyperFrames MP4——而这一页，正是 amp 用它自己的 spec 生成的。'
+      - type: section
+        heading: 一、引言
+        text:
+          - '架构图通常有两种失败方式：要么静态而密集，要么会动却含糊。人们真正愿意转发的讲解介于两者之间——一页图==按阅读顺序逐步构建==，随后循环讲一个小故事，而每一帧都依然清晰可读。'
+          - 'amp 把这种风格封装成可复用的技能。模型决定系统**是什么**：它的层级、节点，以及最值得讲的那个故事；代码决定**放在哪里**、**何时出现**。'
+      - type: cycle
+        title: 评审回路
+        hue: purple
+        center: ≈ 5 秒 / 轮
+        steps: [构建, 截图, 评审, 改 spec]
+      - type: section
+        level: 2
+        heading: （一）spec 即产品
+        text:
+          - '这一页上的一切都来自 `spec.yaml`：页眉、品牌栏、图的原型、三栏内容块，以及可选的故事。其中没有一个像素坐标；文字预算在构建时检查，所以溢出是==构建错误，而不是意外==。'
+    - - type: section
+        level: 2
+        heading: （二）编译器，而非提示词
+        text:
+          - '每种原型都是一个纯函数：输入层级，输出方框、连线和数据包路径。主题是 CSS 变量加一套色相调色板。动效编译器把布局转成一条暂停的 GSAP 时间线——页面唯一的时钟——因此任何一帧都能被精确定位、截图或渲染。'
+      - type: code
+        title: spec.yaml（节选）
+        hue: green
+        text: |-
+          figure:
+            archetype: tiered
+            tiers:
+              - [director]
+              - [researcher, writer, layout,
+                 motion, artist, reviewer]
+              - [spec, themes, archetypes,
+                 timeline, outputs]
+            feedback: { from: outputs }
+      - type: section
+        heading: 二、动效语法
+        text:
+          - '动效分两个阶段。**构建**阶段按数据流顺序画出页面：页眉、根节点、总线、工作节点、底座、结果，最后是反馈边。**环境**阶段是一次次心跳——总监发出脉冲，每个工作节点在数据包抵达时微微放大，交接流入底座，结果再沿虚线回路返回。'
+          - '空闲效果小而可复现：连线流动、吉祥物轻晃、==高亮重绘==。正文从不移动。'
+      - type: table
+        title: 表 1　本页动效清单
+        columns: [效果, 阶段, 时间]
+        rows:
+          - [入场构建, 构建, "0 → 3.0 秒，按阅读顺序"]
+          - [信号数据包, 故事, 沿连线 560 px/s]
+          - [心跳, 故事, "1.2 秒，每拍两个节点"]
+          - [卡片呼吸, 故事, 抵达时放大 3.5%]
+          - [霓虹字标, 空闲, 光晕呼吸，种子可复现]
+          - [吉祥物轻晃, 空闲, "1.9–2.8 秒，种子可复现"]
+    - - type: quote
+        hue: magenta
+        text: 如果某一帧不能当海报，那动效就在说谎。
+        by: "amp 设计守则 #1"
+      - type: section
+        heading: 三、评审回路
+        text:
+          - 'amp 在关键时刻截取页面，拼成一张联系表，并输出适配报告：栏位填充、被截断的标题、元素碰撞。评审意见对照评分表写出，再落实到 spec 上，页面大约一秒即可重建。因为每条评分项都对应一个 spec 字段，修复始终是声明式的，下一轮也可复现。'
+      - type: filmstrip
+        frames:
+          - { src: assets/filmstrip-zh/f1.png, label: t = 0.9 s }
+          - { src: assets/filmstrip-zh/f2.png, label: t = 1.6 s }
+          - { src: assets/filmstrip-zh/f3.png, label: t = 3.2 s }
+        caption: "**图 2**　本页自己的入场构建，由评审回路截取。"
+      - type: section
+        heading: 四、一个源头，三种产出
+        text:
+          - '这一页本身就是一个 HyperFrames 合成：固定时长、一条注册的时间线、本地字体、==从不读取系统时钟==。渲染 MP4 只需一次容器运行，且只在 HTML 通过评审后进行；作为单个 HTML 文件发布时，页面会自动居中并随窗口缩放。'
+      - type: takeaways
+        hue: blue
+        items:
+          - 一份 spec，三种产出——网页、海报和 MP4。
+          - 布局与动效靠编译，从不即兴发挥。
+          - 构建完成后，每一帧都是合格的海报。
+          - 先在 HTML 阶段评审，最后再渲染视频。
+
+footer:
+  left: amp · arch-motion-page
+  center: 由 amp 根据 examples/self-intro/spec.zh.yaml 生成
+  right: 第 1 页 · 共 1 页

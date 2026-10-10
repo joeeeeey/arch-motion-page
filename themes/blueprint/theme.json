@@ -1,0 +1,35 @@
+{
+  "name": "blueprint",
+  "extends": "plush-academic",
+  "description": "Engineering blueprint: navy drafting paper with a cyan grid, mono labels, luminous role hues.",
+  "hues": {
+    "blue": "#6f9bff",
+    "green": "#3fd28f",
+    "yellow": "#f2c14e",
+    "sky": "#4cc3f5",
+    "magenta": "#ff6fbf",
+    "orange": "#ff9a4d",
+    "purple": "#b18cff",
+    "coral": "#ff7a7a",
+    "system": "#8aa0bf",
+    "outcome": "#ff7a7a"
+  },
+  "sweep": [
+    "#6f9bff",
+    "#4cc3f5",
+    "#3fd28f",
+    "#f2c14e",
+    "#ff9a4d",
+    "#ff6fbf",
+    "#b18cff"
+  ],
+  "edge": "#5f82b3",
+  "neon": [
+    "#6f9bff",
+    "#4cc3f5",
+    "#3fd28f",
+    "#f2c14e",
+    "#ff9a4d",
+    "#ff6fbf"
+  ]
+}

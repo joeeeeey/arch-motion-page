@@ -1,0 +1,72 @@
+{
+  "name": "plush-academic",
+  "description": "White paper, black Times-style serif body, felt-plush mascots, pastel role hues, neon wordmark.",
+  "hues": {
+    "blue": "#3f6fe4",
+    "green": "#2e9e68",
+    "yellow": "#d9a019",
+    "sky": "#2b9fd3",
+    "magenta": "#d4439c",
+    "orange": "#ec7a2c",
+    "purple": "#8b5bd6",
+    "coral": "#e85c5c",
+    "system": "#5f6675",
+    "outcome": "#e85c5c"
+  },
+  "sweep": [
+    "#3f6fe4",
+    "#2b9fd3",
+    "#2e9e68",
+    "#d9a019",
+    "#ec7a2c",
+    "#d4439c",
+    "#8b5bd6"
+  ],
+  "edge": "#9aa9c2",
+  "fonts": [
+    {
+      "family": "Tinos",
+      "file": "Tinos-Regular.ttf",
+      "weight": 400,
+      "style": "normal"
+    },
+    {
+      "family": "Tinos",
+      "file": "Tinos-Bold.ttf",
+      "weight": 700,
+      "style": "normal"
+    },
+    {
+      "family": "Tinos",
+      "file": "Tinos-Italic.ttf",
+      "weight": 400,
+      "style": "italic"
+    },
+    {
+      "family": "Tinos",
+      "file": "Tinos-BoldItalic.ttf",
+      "weight": 700,
+      "style": "italic"
+    },
+    {
+      "family": "Inter",
+      "file": "Inter.ttf",
+      "weight": "100 900",
+      "style": "normal"
+    },
+    {
+      "family": "JetBrains Mono",
+      "file": "JetBrainsMono.ttf",
+      "weight": "100 800",
+      "style": "normal"
+    }
+  ],
+  "neon": [
+    "#3b6ff5",
+    "#16b4e3",
+    "#22c55e",
+    "#eab308",
+    "#f97316",
+    "#ec4899"
+  ]
+}

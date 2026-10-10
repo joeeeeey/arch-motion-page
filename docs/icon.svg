@@ -1,0 +1,199 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256" width="256" height="256" role="img" aria-label="arch-motion-page">
+  <title>arch-motion-page</title>
+  <defs>
+    <linearGradient id="tile" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#121a33"/><stop offset="1" stop-color="#1f1640"/>
+    </linearGradient>
+    <linearGradient id="rim" x1="0" y1="0" x2="1" y2="1"><stop offset="0.000" stop-color="#3b6ff5"/><stop offset="0.167" stop-color="#16b4e3"/><stop offset="0.333" stop-color="#22c55e"/><stop offset="0.500" stop-color="#eab308"/><stop offset="0.667" stop-color="#f97316"/><stop offset="0.833" stop-color="#ec4899"/><stop offset="1.000" stop-color="#3b6ff5"/>
+      <animateTransform attributeName="gradientTransform" type="rotate" from="0 .5 .5" to="360 .5 .5" dur="8s" repeatCount="indefinite"/>
+    </linearGradient>
+    <linearGradient id="wm" gradientUnits="userSpaceOnUse" x1="10" y1="0" x2="76" y2="0" spreadMethod="reflect"><stop offset="0.000" stop-color="#3b6ff5"/><stop offset="0.167" stop-color="#16b4e3"/><stop offset="0.333" stop-color="#22c55e"/><stop offset="0.500" stop-color="#eab308"/><stop offset="0.667" stop-color="#f97316"/><stop offset="0.833" stop-color="#ec4899"/><stop offset="1.000" stop-color="#3b6ff5"/>
+      <animateTransform attributeName="gradientTransform" type="translate" from="0 0" to="132 0" dur="6s" repeatCount="indefinite"/>
+    </linearGradient>
+    <linearGradient id="shine" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0" stop-color="#fff" stop-opacity="0"/><stop offset=".5" stop-color="#fff" stop-opacity=".85"/><stop offset="1" stop-color="#fff" stop-opacity="0"/>
+    </linearGradient>
+    <pattern id="dots" width="14" height="14" patternUnits="userSpaceOnUse"><circle cx="7" cy="7" r=".9" fill="#fff" opacity=".09"/></pattern>
+    <filter id="glow" x="-20%" y="-20%" width="140%" height="140%"><feGaussianBlur stdDeviation="5"/></filter>
+    <filter id="soft" x="-100%" y="-100%" width="300%" height="300%"><feGaussianBlur stdDeviation="1.6"/></filter>
+    <filter id="paper" x="-20%" y="-20%" width="140%" height="140%"><feDropShadow dx="0" dy="6" stdDeviation="7" flood-color="#000" flood-opacity=".5"/></filter>
+    <clipPath id="wmclip"><rect x="10" y="14" width="66" height="11" rx="5.5"/></clipPath>
+  </defs>
+
+  <!-- tile + neon rim -->
+  <rect x="8" y="8" width="240" height="240" rx="54" fill="url(#tile)"/>
+  <rect x="8" y="8" width="240" height="240" rx="54" fill="url(#dots)"/>
+  <rect x="9.5" y="9.5" width="237" height="237" rx="52.5" fill="none" stroke="url(#rim)" stroke-width="6" filter="url(#glow)" opacity=".85">
+    <animate attributeName="opacity" values=".55;.95;.55" dur="2.4s" repeatCount="indefinite" calcMode="spline" keyTimes="0;.5;1" keySplines=".4 0 .6 1;.4 0 .6 1"/>
+  </rect>
+  <rect x="9.5" y="9.5" width="237" height="237" rx="52.5" fill="none" stroke="url(#rim)" stroke-width="3"/>
+
+  <!-- the A4 page -->
+  <g transform="translate(53.8 23.05) scale(1.06)">
+    <rect width="140" height="198" rx="7" fill="#fff" filter="url(#paper)"/>
+
+    <!-- header: kicker, neon wordmark with a sweep, subtitle, rule -->
+    <rect x="10" y="8" width="26" height="2" rx="1" fill="#9aa3b5"/>
+    <rect x="8" y="12" width="70" height="15" rx="7.5" fill="url(#wm)" filter="url(#soft)" opacity=".6">
+      <animate attributeName="opacity" values=".35;.8;.35" dur="2.4s" repeatCount="indefinite" calcMode="spline" keyTimes="0;.5;1" keySplines=".4 0 .6 1;.4 0 .6 1"/>
+    </rect>
+    <rect x="10" y="14" width="66" height="11" rx="5.5" fill="url(#wm)"/>
+    <g clip-path="url(#wmclip)">
+      <rect x="-30" y="10" width="22" height="20" fill="url(#shine)" transform="skewX(-20)">
+        <animate attributeName="x" dur="4.8s" repeatCount="indefinite" keyTimes="0;.3;1" values="-30;100;100"/>
+      </rect>
+    </g>
+    <rect x="82" y="16.5" width="44" height="2.2" rx="1.1" fill="#c4cad6"/>
+    <rect x="82" y="21.5" width="30" height="2.2" rx="1.1" fill="#c4cad6"/>
+    <rect x="10" y="31" width="104" height="2.4" rx="1.2" fill="#5b6273"/>
+    <rect x="10" y="38.5" width="120" height=".9" fill="#14161f"/>
+
+    <!-- figure: edges, marching flow, feedback ants -->
+    <g fill="none" stroke-linecap="round">
+      <path d="M66 62 C66 69 22 69 22 76 M66 62 L66 76 M66 62 C66 69 110 69 110 76 M22 94 C22 101 30 101 30 108 M66 94 C66 101 58 101 58 108 M110 94 C110 101 100 101 100 108 M68 115 L78 115" stroke="#9aa9c2" stroke-width="1.3"/>
+      <path d="M66 62 C66 69 22 69 22 76 M66 62 L66 76 M66 62 C66 69 110 69 110 76 M22 94 C22 101 30 101 30 108 M66 94 C66 101 58 101 58 108 M110 94 C110 101 100 101 100 108 M68 115 L78 115" stroke="#3b74f0" stroke-width="1.3" stroke-dasharray="1.6 3.4" opacity=".75">
+        <animate attributeName="stroke-dashoffset" from="10" to="0" dur="1.2s" repeatCount="indefinite"/>
+      </path>
+      <path d="M116 115 C141 115 141 54 88 54" stroke="#e85c5c" stroke-width="1.3" stroke-dasharray="3 3" opacity=".8">
+        <animate attributeName="stroke-dashoffset" from="12" to="0" dur="1.2s" repeatCount="indefinite"/>
+      </path>
+      <path d="M90.5 51.2 L87.6 54 L90.5 56.8" stroke="#e85c5c" stroke-width="1.3" stroke-linejoin="round"/>
+    </g>
+
+    <!-- root: heartbeat ring + breathing card -->
+    <g transform="translate(66 54)">
+      <rect x="-22" y="-8" width="44" height="16" rx="5" fill="none" stroke="#3b6ff5" stroke-width="1.6" opacity="0">
+        <animateTransform attributeName="transform" type="scale" values="1;1.55" dur="1.2s" repeatCount="indefinite" calcMode="spline" keyTimes="0;1" keySplines=".2 .6 .4 1"/>
+        <animate attributeName="opacity" values=".9;0" dur="1.2s" repeatCount="indefinite"/>
+      </rect>
+      <g>
+        <animateTransform attributeName="transform" type="scale" values="1;1.08;1;1" keyTimes="0;.14;.55;1" dur="1.2s" repeatCount="indefinite" calcMode="spline" keySplines=".3 0 .2 1;.4 0 .3 1;0 0 1 1"/>
+        <rect x="-22" y="-8" width="44" height="16" rx="4" fill="#14161f"/>
+        <rect x="-14" y="-2.6" width="20" height="2.2" rx="1.1" fill="#fff"/>
+        <rect x="-14" y="1.4" width="13" height="1.6" rx=".8" fill="#8f97a8"/>
+        <circle cx="13" cy="0" r="3.2" fill="url(#wm)"/>
+      </g>
+    </g>
+
+    <!-- workers swell as their packet lands -->
+    
+    <g transform="translate(22 85)"><g><animateTransform attributeName="transform" type="scale" dur="4.8s" repeatCount="indefinite" calcMode="spline"
+        keyTimes="0;0.0938;0.1271;0.223;1" values="1;1;1.18;1;1" keySplines="0 0 1 1;.3 0 .2 1;.4 0 .3 1;0 0 1 1"/>
+      <rect x="-14" y="-9" width="28" height="18" rx="4" fill="#e8eefc" stroke="#3f6fe4" stroke-width="1.4"/>
+      <circle cx="-6.5" cy="-1.5" r="4.2" fill="#3f6fe4"/><circle cx="-7.8" cy="-2.3" r=".75" fill="#14161f"/><circle cx="-5" cy="-2.3" r=".75" fill="#14161f"/>
+      <rect x="0" y="-3.4" width="9" height="1.8" rx=".9" fill="#3f6fe4" opacity=".8"/><rect x="0" y="0" width="6.5" height="1.5" rx=".75" fill="#9aa3b5"/>
+    </g></g>
+    <g transform="translate(66 85)"><g><animateTransform attributeName="transform" type="scale" dur="4.8s" repeatCount="indefinite" calcMode="spline"
+        keyTimes="0;0.3437;0.377;0.4729;1" values="1;1;1.18;1;1" keySplines="0 0 1 1;.3 0 .2 1;.4 0 .3 1;0 0 1 1"/>
+      <rect x="-14" y="-9" width="28" height="18" rx="4" fill="#e6f3ed" stroke="#2e9e68" stroke-width="1.4"/>
+      <circle cx="-6.5" cy="-1.5" r="4.2" fill="#2e9e68"/><circle cx="-7.8" cy="-2.3" r=".75" fill="#14161f"/><circle cx="-5" cy="-2.3" r=".75" fill="#14161f"/>
+      <rect x="0" y="-3.4" width="9" height="1.8" rx=".9" fill="#2e9e68" opacity=".8"/><rect x="0" y="0" width="6.5" height="1.5" rx=".75" fill="#9aa3b5"/>
+    </g></g>
+    <g transform="translate(110 85)"><g><animateTransform attributeName="transform" type="scale" dur="4.8s" repeatCount="indefinite" calcMode="spline"
+        keyTimes="0;0.5938;0.6271;0.723;1" values="1;1;1.18;1;1" keySplines="0 0 1 1;.3 0 .2 1;.4 0 .3 1;0 0 1 1"/>
+      <rect x="-14" y="-9" width="28" height="18" rx="4" fill="#fae8f3" stroke="#d4439c" stroke-width="1.4"/>
+      <circle cx="-6.5" cy="-1.5" r="4.2" fill="#d4439c"/><circle cx="-7.8" cy="-2.3" r=".75" fill="#14161f"/><circle cx="-5" cy="-2.3" r=".75" fill="#14161f"/>
+      <rect x="0" y="-3.4" width="9" height="1.8" rx=".9" fill="#d4439c" opacity=".8"/><rect x="0" y="0" width="6.5" height="1.5" rx=".75" fill="#9aa3b5"/>
+    </g></g>
+
+    <!-- substrate + outcome -->
+    
+    <g transform="translate(41 115)"><g><animateTransform attributeName="transform" type="scale" dur="4.8s" repeatCount="indefinite" calcMode="spline"
+        keyTimes="0;0.8229;0.8562;0.9521;1" values="1;1;1.08;1;1" keySplines="0 0 1 1;.3 0 .2 1;.4 0 .3 1;0 0 1 1"/>
+      <rect x="-27" y="-7" width="54" height="14" rx="4" fill="#eef0f4" stroke="#5f6675" stroke-width="1.2" stroke-dasharray="3 2"/>
+      <rect x="-20" y="-1" width="26" height="2" rx="1" fill="#8f97a8"/>
+    </g></g>
+    
+    <g transform="translate(97 115)"><g><animateTransform attributeName="transform" type="scale" dur="4.8s" repeatCount="indefinite" calcMode="spline"
+        keyTimes="0;0.8646;0.8979;0.9938;1" values="1;1;1.14;1;1" keySplines="0 0 1 1;.3 0 .2 1;.4 0 .3 1;0 0 1 1"/>
+      <rect x="-19" y="-7" width="38" height="14" rx="4" fill="#fce8e8" stroke="#e85c5c" stroke-width="1.8"/>
+      <path d="M-5 0.2 L-1.6 3.2 L5 -3.4" fill="none" stroke="#e85c5c" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>
+    </g></g>
+
+    <!-- packets: root -> each worker, workers -> substrate, hand-off, feedback -> root -->
+    
+    <g opacity="0">
+      <animate attributeName="opacity" dur="4.8s" repeatCount="indefinite" keyTimes="0;0.0083;0.0103;0.1021;0.1041;1" values="0;0;1;1;0;0"/>
+      <animateMotion dur="4.8s" repeatCount="indefinite" calcMode="spline" keyPoints="0;0;1;1" keyTimes="0;0.0083;0.1041;1"
+        keySplines="0 0 1 1;.45 0 .25 1;0 0 1 1" path="M66 62 C66 69 22 69 22 76"/>
+      <circle r="5.940000000000001" fill="#3f6fe4" opacity=".35" filter="url(#soft)"/>
+      <circle r="2.7" fill="#3f6fe4" stroke="#fff" stroke-width="1"/>
+    </g>
+    <g opacity="0">
+      <animate attributeName="opacity" dur="4.8s" repeatCount="indefinite" keyTimes="0;0.2583;0.2603;0.3521;0.3541;1" values="0;0;1;1;0;0"/>
+      <animateMotion dur="4.8s" repeatCount="indefinite" calcMode="spline" keyPoints="0;0;1;1" keyTimes="0;0.2583;0.3541;1"
+        keySplines="0 0 1 1;.45 0 .25 1;0 0 1 1" path="M66 62 L66 76"/>
+      <circle r="5.940000000000001" fill="#2e9e68" opacity=".35" filter="url(#soft)"/>
+      <circle r="2.7" fill="#2e9e68" stroke="#fff" stroke-width="1"/>
+    </g>
+    <g opacity="0">
+      <animate attributeName="opacity" dur="4.8s" repeatCount="indefinite" keyTimes="0;0.5083;0.5103;0.6021;0.6041;1" values="0;0;1;1;0;0"/>
+      <animateMotion dur="4.8s" repeatCount="indefinite" calcMode="spline" keyPoints="0;0;1;1" keyTimes="0;0.5083;0.6041;1"
+        keySplines="0 0 1 1;.45 0 .25 1;0 0 1 1" path="M66 62 C66 69 110 69 110 76"/>
+      <circle r="5.940000000000001" fill="#d4439c" opacity=".35" filter="url(#soft)"/>
+      <circle r="2.7" fill="#d4439c" stroke="#fff" stroke-width="1"/>
+    </g>
+    
+    <g opacity="0">
+      <animate attributeName="opacity" dur="4.8s" repeatCount="indefinite" keyTimes="0;0.75;0.752;0.8313;0.8333;1" values="0;0;1;1;0;0"/>
+      <animateMotion dur="4.8s" repeatCount="indefinite" calcMode="spline" keyPoints="0;0;1;1" keyTimes="0;0.75;0.8333;1"
+        keySplines="0 0 1 1;.45 0 .25 1;0 0 1 1" path="M22 94 C22 101 30 101 30 108"/>
+      <circle r="5.06" fill="#3f6fe4" opacity=".35" filter="url(#soft)"/>
+      <circle r="2.3" fill="#3f6fe4" stroke="#fff" stroke-width="1"/>
+    </g>
+    <g opacity="0">
+      <animate attributeName="opacity" dur="4.8s" repeatCount="indefinite" keyTimes="0;0.75;0.752;0.8313;0.8333;1" values="0;0;1;1;0;0"/>
+      <animateMotion dur="4.8s" repeatCount="indefinite" calcMode="spline" keyPoints="0;0;1;1" keyTimes="0;0.75;0.8333;1"
+        keySplines="0 0 1 1;.45 0 .25 1;0 0 1 1" path="M66 94 C66 101 58 101 58 108"/>
+      <circle r="5.06" fill="#2e9e68" opacity=".35" filter="url(#soft)"/>
+      <circle r="2.3" fill="#2e9e68" stroke="#fff" stroke-width="1"/>
+    </g>
+    <g opacity="0">
+      <animate attributeName="opacity" dur="4.8s" repeatCount="indefinite" keyTimes="0;0.75;0.752;0.8313;0.8333;1" values="0;0;1;1;0;0"/>
+      <animateMotion dur="4.8s" repeatCount="indefinite" calcMode="spline" keyPoints="0;0;1;1" keyTimes="0;0.75;0.8333;1"
+        keySplines="0 0 1 1;.45 0 .25 1;0 0 1 1" path="M110 94 C110 101 100 101 100 108"/>
+      <circle r="5.06" fill="#d4439c" opacity=".35" filter="url(#soft)"/>
+      <circle r="2.3" fill="#d4439c" stroke="#fff" stroke-width="1"/>
+    </g>
+    
+    <g opacity="0">
+      <animate attributeName="opacity" dur="4.8s" repeatCount="indefinite" keyTimes="0;0.8333;0.8353;0.873;0.875;1" values="0;0;1;1;0;0"/>
+      <animateMotion dur="4.8s" repeatCount="indefinite" calcMode="spline" keyPoints="0;0;1;1" keyTimes="0;0.8333;0.875;1"
+        keySplines="0 0 1 1;.45 0 .25 1;0 0 1 1" path="M68 115 L78 115"/>
+      <circle r="5.06" fill="#5f6675" opacity=".35" filter="url(#soft)"/>
+      <circle r="2.3" fill="#5f6675" stroke="#fff" stroke-width="1"/>
+    </g>
+    
+    <g opacity="0">
+      <animate attributeName="opacity" dur="4.8s" repeatCount="indefinite" keyTimes="0;0.875;0.877;0.998;1;1" values="0;0;1;1;0;0"/>
+      <animateMotion dur="4.8s" repeatCount="indefinite" calcMode="spline" keyPoints="0;0;1;1" keyTimes="0;0.875;1;1"
+        keySplines="0 0 1 1;.45 0 .25 1;0 0 1 1" path="M116 115 C141 115 141 54 88 54"/>
+      <circle r="5.940000000000001" fill="#e85c5c" opacity=".35" filter="url(#soft)"/>
+      <circle r="2.7" fill="#e85c5c" stroke="#fff" stroke-width="1"/>
+    </g>
+
+    <!-- body: three columns with highlighter marks -->
+    <rect x="10" y="133.5" width="18" height="3.2" rx="1.6" fill="#3f6fe4"/>
+      
+      <rect x="9" y="150.4" height="4.8" rx="1" fill="#f5d24a" opacity=".45" width="0">
+        <animate attributeName="width" dur="4.8s" repeatCount="indefinite" calcMode="spline" keyTimes="0;0.1563;0.2605;.97;1"
+          values="0;0;28;28;0" keySplines="0 0 1 1;.4 0 .2 1;0 0 1 1;.4 0 .6 1"/>
+      </rect>
+      <g fill="#c4cad6"><rect x="10" y="141" width="34" height="1.9" rx=".95"/><rect x="10" y="146.4" width="28" height="1.9" rx=".95"/><rect x="10" y="151.8" width="29" height="1.9" rx=".95"/><rect x="10" y="157.2" width="20" height="1.9" rx=".95"/><rect x="10" y="162.6" width="34" height="1.9" rx=".95"/><rect x="10" y="168" width="29" height="1.9" rx=".95"/><rect x="10" y="173.4" width="18" height="1.9" rx=".95"/><rect x="10" y="178.8" width="27" height="1.9" rx=".95"/><rect x="10" y="184.2" width="28" height="1.9" rx=".95"/></g>
+      <rect x="53" y="133.5" width="21" height="3.2" rx="1.6" fill="#2e9e68"/>
+      
+      <rect x="52" y="161.2" height="4.8" rx="1" fill="#f5d24a" opacity=".45" width="0">
+        <animate attributeName="width" dur="4.8s" repeatCount="indefinite" calcMode="spline" keyTimes="0;0.4063;0.5105;.97;1"
+          values="0;0;28;28;0" keySplines="0 0 1 1;.4 0 .2 1;0 0 1 1;.4 0 .6 1"/>
+      </rect>
+      <g fill="#c4cad6"><rect x="53" y="141" width="28" height="1.9" rx=".95"/><rect x="53" y="146.4" width="30" height="1.9" rx=".95"/><rect x="53" y="151.8" width="31" height="1.9" rx=".95"/><rect x="53" y="157.2" width="22" height="1.9" rx=".95"/><rect x="53" y="162.6" width="28" height="1.9" rx=".95"/><rect x="53" y="168" width="31" height="1.9" rx=".95"/><rect x="53" y="173.4" width="20" height="1.9" rx=".95"/><rect x="53" y="178.8" width="29" height="1.9" rx=".95"/><rect x="53" y="184.2" width="22" height="1.9" rx=".95"/></g>
+      <rect x="96" y="133.5" width="24" height="3.2" rx="1.6" fill="#d4439c"/>
+      
+      <rect x="95" y="172" height="4.8" rx="1" fill="#f5d24a" opacity=".45" width="0">
+        <animate attributeName="width" dur="4.8s" repeatCount="indefinite" calcMode="spline" keyTimes="0;0.6562;0.7604;.97;1"
+          values="0;0;28;28;0" keySplines="0 0 1 1;.4 0 .2 1;0 0 1 1;.4 0 .6 1"/>
+      </rect>
+      <g fill="#c4cad6"><rect x="96" y="141" width="30" height="1.9" rx=".95"/><rect x="96" y="146.4" width="24" height="1.9" rx=".95"/><rect x="96" y="151.8" width="33" height="1.9" rx=".95"/><rect x="96" y="157.2" width="24" height="1.9" rx=".95"/><rect x="96" y="162.6" width="30" height="1.9" rx=".95"/><rect x="96" y="168" width="25" height="1.9" rx=".95"/><rect x="96" y="173.4" width="22" height="1.9" rx=".95"/><rect x="96" y="178.8" width="31" height="1.9" rx=".95"/><rect x="96" y="184.2" width="24" height="1.9" rx=".95"/></g>
+    <rect x="10" y="189" width="120" height=".7" fill="#d5d9e2"/>
+  </g>
+</svg>

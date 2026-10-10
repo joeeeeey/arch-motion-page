@@ -1,0 +1,277 @@
+/* plush-academic: white paper, black serif body, pastel role hues, felt-plush mascots.
+   Hue tokens (--h-*) and --sweep are injected by the build from theme.json. */
+
+:root {
+  --paper: #ffffff;
+  --ink: #0e1014;
+  --ink-2: #2c313b;
+  --ink-3: #5f6674;
+  --line: #e2e6ed;
+  --panel: #f4f8fe;
+  --panel-dot: #dce6f4;
+  --card: #ffffff;
+  --tint: #ffffff;      /* base that hue tints are mixed into (card headers, badges, boxes) */
+  --shade: #000000;     /* base that hue shades are mixed into (code tokens) */
+  --desk: #e6e8ec;      /* outside the page */
+  --code-bg: #eef1f6;
+  --code-ink: #1f2430;
+  --glow-a: #dfeaff;
+  --glow-b: #fde6f2;
+  --mark-a: 42%;        /* highlighter strength */
+  --flow: #3b74f0;      /* marching dashes on edges */
+  --wm-core: #ffffff;   /* neon wordmark letter fill */
+  /* --cjk-* are set by the language layer (lib/lang.mjs); unset, the system fallbacks apply */
+  --serif: "Tinos", var(--cjk-serif, "Times New Roman"), serif;
+  --sans: "Inter", var(--cjk-sans, "Helvetica Neue"), Arial, sans-serif;
+  --mono: "JetBrains Mono", var(--cjk-sans, Menlo), monospace;
+  --label: var(--sans); /* small-caps labels: kicker, fig label, bus label, box titles, footer */
+}
+
+html, body { margin: 0; padding: 0; background: var(--desk); }
+body { -webkit-font-smoothing: antialiased; text-rendering: geometricPrecision; }
+* { box-sizing: border-box; }
+
+.amp-page {
+  position: relative; overflow: hidden;
+  background: var(--paper); color: var(--ink);
+  font-family: var(--serif);
+  font-kerning: normal;
+}
+.amp-page code { hyphens: none; white-space: nowrap; font-family: var(--mono); font-size: .86em; background: var(--code-bg); padding: 0 3px; border-radius: 3px; }
+
+/* ---------- header ---------- */
+.amp-header { position: absolute; }
+.amp-kicker {
+  display: flex; justify-content: space-between; align-items: baseline;
+  font: 600 11px/1 var(--label); letter-spacing: .14em; text-transform: uppercase; color: var(--ink-3);
+}
+.amp-kicker b { color: var(--ink-2); font-weight: 700; }
+.amp-title { margin: 12px 0 0; font: 700 44px/1.04 var(--serif); letter-spacing: -.012em; white-space: nowrap; }
+.amp-sweep {
+  background-image: linear-gradient(100deg, var(--ink) 0%, var(--ink) 34%, var(--sweep), var(--ink) 66%, var(--ink) 100%);
+  background-size: 300% 100%; background-position: 100% 50%;
+  -webkit-background-clip: text; background-clip: text; color: transparent;
+  padding-bottom: 4px;
+}
+.amp-subtitle { margin-top: 8px; font: italic 400 17px/1.3 var(--serif); color: var(--ink-2); white-space: nowrap; }
+
+.amp-stamp { position: absolute; right: 2px; top: 20px; }
+.amp-stamp svg { display: block; overflow: visible; }
+.amp-stamp .disc { fill: color-mix(in srgb, var(--h-outcome) 9%, var(--tint)); stroke: color-mix(in srgb, var(--h-outcome) 45%, var(--tint)); stroke-width: 1.2; }
+.amp-stamp .inner { fill: none; stroke: color-mix(in srgb, var(--h-outcome) 45%, var(--tint)); stroke-width: 1; stroke-dasharray: 2 3; }
+.amp-stamp .ring text { font: 700 8.6px var(--sans); letter-spacing: .12em; text-transform: uppercase; fill: var(--h-outcome); }
+.amp-stamp .center { font: 700 21px var(--serif); fill: var(--ink); letter-spacing: -.02em; }
+
+/* ---------- brand column ---------- */
+.amp-brand { position: absolute; display: flex; flex-direction: column; }
+.amp-brand-art { position: relative; height: 214px; }
+.amp-brand-art::before {
+  content: ""; position: absolute; inset: 18px 6px 0 6px; border-radius: 50%;
+  background: radial-gradient(closest-side, var(--glow-a) 0%, var(--glow-b) 55%, transparent 100%);
+}
+.amp-brand-art img { position: absolute; left: 0; right: 0; bottom: 0; margin: auto; width: 100%; }
+.amp-wordmark {
+  --hr: 0; margin: 2px 0 8px 2px; font: 800 78px/1 var(--sans); letter-spacing: -.035em; display: flex;
+  filter: hue-rotate(calc(var(--hr) * 1deg));
+}
+/* neon: white letters over two blurred copies of one word-wide gradient (--wm-grad); --g breathes */
+.amp-wordmark span { --g: .6; position: relative; display: inline-block; isolation: isolate; color: var(--wm-core); }
+.amp-wordmark span::before, .amp-wordmark span::after {
+  content: attr(data-ch); position: absolute; inset: 0; z-index: -1; color: transparent;
+  background: var(--wm-grad); background-size: calc(var(--n) * 100%) 100%; background-position: calc(var(--i) * 100%) 0;
+  -webkit-background-clip: text; background-clip: text;
+}
+.amp-wordmark span::before { filter: blur(calc(4px + var(--g) * 6px)) saturate(1.35); opacity: calc(.6 + var(--g) * .4); }
+.amp-wordmark span::after { filter: blur(calc(.8px + var(--g) * 1.2px)) saturate(1.2); }
+.amp-tagline { margin-top: 8px; font: 700 11px/1.3 var(--label); letter-spacing: .16em; text-transform: uppercase; color: var(--ink-2); }
+.amp-dots { display: flex; gap: 7px; margin: 12px 0 0; }
+.amp-dots i { width: 11px; height: 11px; border-radius: 50%; background: var(--hue); display: block; }
+.amp-blurb { margin: 12px 0 0; font: 400 14.5px/1.38 var(--serif); color: var(--ink-2); }
+.amp-stats { list-style: none; margin: 12px 0 0; padding: 0; border-top: 1px solid var(--line); }
+.amp-stats li {
+  display: flex; align-items: center; gap: 8px; padding: 6px 0; border-bottom: 1px solid var(--line);
+  font: 600 12px/1.2 var(--sans); color: var(--ink-2);
+}
+.amp-stats .amp-icon { width: 15px; height: 15px; color: var(--ink-3); flex: none; }
+
+/* ---------- figure ---------- */
+.amp-figure { position: absolute; margin: 0; }
+.amp-panel {
+  position: absolute; inset: 0; border-radius: 18px; border: 1px solid var(--line);
+  background-color: var(--panel);
+  background-image: radial-gradient(var(--panel-dot) 1px, transparent 1.2px);
+  background-size: 16px 16px; background-position: 8px 8px;
+}
+.amp-figlabel {
+  position: absolute; left: 22px; top: 15px;
+  font: 700 10.5px/1 var(--label); letter-spacing: .16em; text-transform: uppercase; color: var(--ink-3);
+}
+.amp-figlabel b { color: var(--ink); }
+.amp-edges { position: absolute; left: 0; top: 0; overflow: visible; }
+.amp-edges .e { fill: none; stroke: var(--edge); stroke-width: 1.6; stroke-linecap: round; stroke-linejoin: round; }
+.amp-edges .fl { fill: none; stroke: var(--flow); stroke-width: 1.8; stroke-dasharray: 3 7; stroke-linecap: round; opacity: 0; }
+.amp-edges .e.fb { stroke: var(--h-outcome); stroke-width: 1.8; stroke-dasharray: 6 5; }
+.amp-edges .ah { fill: var(--edge); }
+.amp-edges .ah.fb { fill: var(--h-outcome); }
+.amp-edges .bus3 { stroke: var(--ink-2); stroke-width: 2; }
+
+/* .amp-node is the positioning wrapper that build tweens transform;
+   .amp-card carries the visuals so ambient --hl effects never fight GSAP transforms. */
+.amp-node { --hl: 0; position: absolute; z-index: 2; }
+.amp-card {
+  position: absolute; inset: 0; border-radius: 14px; background: var(--card);
+  border: 1.5px solid color-mix(in srgb, var(--hue) 42%, var(--tint));
+  box-shadow:
+    0 0 0 calc(var(--hl) * 2.5px) color-mix(in srgb, var(--hue) 80%, transparent),
+    0 calc(2px + var(--hl) * 8px) calc(6px + var(--hl) * 22px) color-mix(in srgb, var(--hue) calc(14% + var(--hl) * 30%), transparent);
+  /* breathe: a packet arrival lifts and swells the card a little */
+  translate: 0 calc(var(--hl) * -2px);
+  scale: calc(1 + var(--hl) * .035);
+  display: flex; flex-direction: column; align-items: center; text-align: center;
+}
+.amp-node-title { font: 700 13px/1.15 var(--sans); color: var(--ink); letter-spacing: -.005em; }
+.amp-node-sub { font: italic 400 12px/1.25 var(--serif); color: var(--ink-2); }
+
+.t0 .amp-card { flex-direction: row; align-items: center; text-align: left; padding: 0 16px 0 86px;
+  background: linear-gradient(90deg, color-mix(in srgb, var(--hue) 13%, var(--tint)), var(--card) 70%); }
+.t0 .amp-text { display: flex; flex-direction: column; }
+.t0 .amp-mascot { position: absolute; left: 10px; bottom: 4px; height: 76px; }
+.t0 .amp-node-title { font-size: 16px; }
+.t0 .amp-node-sub { font-size: 13px; margin-top: 3px; }
+
+.t1 .amp-card { padding: 0 7px 8px; overflow: hidden; background: color-mix(in srgb, var(--hue) 6%, var(--tint)); }
+.t1 .amp-card::before {
+  content: ""; position: absolute; left: 0; right: 0; top: 0; height: 66px;
+  background: color-mix(in srgb, var(--hue) 15%, var(--tint));
+}
+.t1 .amp-mascot { position: relative; height: 62px; margin-top: 4px; }
+.t1 .amp-node-title { position: relative; margin-top: 9px; }
+.t1 .amp-node-sub { margin-top: 4px; font-size: 11.5px; }
+
+.t2 .amp-card { padding: 12px 8px 8px; }
+.t2 .amp-badge {
+  width: 34px; height: 34px; border-radius: 50%; flex: none;
+  display: grid; place-items: center; color: var(--hue);
+  background: color-mix(in srgb, var(--hue) 13%, var(--tint));
+}
+.t2 .amp-badge .amp-icon { width: 19px; height: 19px; }
+.t2 .amp-mascot { height: 40px; }
+.t2 .amp-node-title { margin-top: 8px; font-size: 12.5px; }
+.t2 .amp-node-sub { margin-top: 3px; font-size: 11.5px; }
+.outcome .amp-card { border-width: 2px; border-color: color-mix(in srgb, var(--hue) 60%, var(--tint)); }
+
+.amp-mascot { display: block; }
+.amp-mascot img { height: 100%; width: auto; display: block; }
+
+.amp-ring {
+  position: absolute; border-radius: 18px; border: 1.5px dashed color-mix(in srgb, var(--ink-3) 70%, transparent);
+  opacity: 0; z-index: 1;
+}
+.amp-buslabel {
+  position: absolute; transform: translateX(-50%); white-space: nowrap; z-index: 2;
+  font: 700 10px/1 var(--label); letter-spacing: .14em; text-transform: uppercase; color: var(--ink-2);
+  padding: 3px 0;
+}
+.amp-fblabel {
+  position: absolute; text-align: right; z-index: 2;
+  font: italic 400 13px/1.25 var(--serif); color: color-mix(in srgb, var(--h-outcome) 72%, var(--ink)); /* readable copy: >= 4.5:1 */
+  display: flex; flex-direction: column; align-items: flex-end; justify-content: flex-end;
+}
+.amp-fblabel .k { font: 700 9.5px/1 var(--label); font-style: normal; letter-spacing: .16em; text-transform: uppercase; margin-bottom: 4px; }
+.amp-packet {
+  position: absolute; left: -5px; top: -5px; width: 10px; height: 10px; border-radius: 50%;
+  background: var(--hue); opacity: 0; z-index: 3;
+  box-shadow: 0 0 0 3px color-mix(in srgb, var(--hue) 25%, transparent), 0 0 10px 2px color-mix(in srgb, var(--hue) 45%, transparent);
+}
+.amp-spot {
+  position: absolute; left: 0; top: 0; width: 10px; height: 10px; border-radius: 17px; opacity: 0; z-index: 4;
+  border: 2px solid var(--h-blue); pointer-events: none;
+}
+
+/* ---------- caption + rule ---------- */
+.amp-caption { position: absolute; margin: 0; font: 400 14px/1.4 var(--serif); color: var(--ink); text-align: justify; hyphens: auto; }
+.amp-caption b { color: var(--ink); }
+.amp-rule { position: absolute; height: 0; border: 0; border-top: 1px solid var(--line); margin: 0; }
+
+/* ---------- body columns ---------- */
+.amp-col {
+  position: absolute; overflow: hidden;
+  font: 400 13.4px/1.42 var(--serif); text-align: justify; hyphens: auto; color: var(--ink);
+}
+.amp-col p { margin: 0 0 6px; }
+.amp-col p + p { text-indent: 1.1em; }
+.amp-block { margin: 0 0 8px; }
+.amp-abstract p { font-weight: 700; font-size: 13px; line-height: 1.4; }
+.amp-abstract p em.lead { font-style: italic; }
+.amp-h1 { margin: 11px 0 5px; text-align: left; font: 700 14.5px/1.2 var(--serif); text-transform: uppercase; letter-spacing: .02em; }
+.amp-h2 { margin: 8px 0 4px; font: italic 700 14px/1.2 var(--serif); }
+.amp-hsweep {
+  background-image: linear-gradient(100deg, var(--ink) 0%, var(--ink) 38%, var(--hue, var(--h-blue)), var(--ink) 62%, var(--ink) 100%);
+  background-size: 300% 100%; background-position: 100% 50%;
+  -webkit-background-clip: text; background-clip: text; color: transparent;
+}
+.amp-mark {
+  --mk: 1; color: inherit; background-color: transparent; padding: 0 1px; border-radius: 2px;
+  background-image: linear-gradient(transparent 12%, color-mix(in srgb, var(--hue, #f5d24a) var(--mark-a), transparent) 12%, color-mix(in srgb, var(--hue, #f5d24a) var(--mark-a), transparent) 88%, transparent 88%);
+  background-repeat: no-repeat; background-size: calc(var(--mk) * 100%) 100%;
+  -webkit-box-decoration-break: clone; box-decoration-break: clone;
+}
+
+.amp-box {
+  border-radius: 12px; border: 1px solid color-mix(in srgb, var(--hue) 30%, var(--tint));
+  background: color-mix(in srgb, var(--hue) 6%, var(--tint)); padding: 10px 12px 11px; margin: 10px 0 10px;
+}
+.amp-box-title {
+  font: 700 10.5px/1 var(--label); letter-spacing: .14em; text-transform: uppercase; color: color-mix(in srgb, var(--hue) 75%, var(--ink));
+  margin-bottom: 8px; text-align: left;
+}
+
+.amp-cycle svg { display: block; margin: 0 auto; overflow: visible; }
+.amp-cycle .ring { fill: none; stroke: color-mix(in srgb, var(--hue) 35%, var(--tint)); stroke-width: 2; }
+.amp-cycle .step { --on: 0; }
+.amp-cycle .step circle { fill: var(--card); stroke: var(--hue); stroke-width: 2; }
+.amp-cycle .step .fill { fill: var(--hue); stroke: none; opacity: var(--on); }
+.amp-cycle .step text { font: 600 11.5px var(--sans); fill: var(--ink-2); }
+.amp-cycle .center { font: italic 400 12.5px var(--serif); fill: var(--ink-3); }
+.amp-cycle .orbit circle { fill: var(--hue); }
+
+.amp-takeaways ol { list-style: none; margin: 0; padding: 0; counter-reset: tk; text-align: left; }
+.amp-takeaways li { position: relative; padding-left: 26px; margin: 0 0 6px; font-size: 13px; line-height: 1.36; counter-increment: tk; }
+.amp-takeaways li:last-child { margin-bottom: 0; }
+.amp-takeaways li::before {
+  content: counter(tk); position: absolute; left: 0; top: 1px; width: 18px; height: 18px; border-radius: 50%;
+  background: var(--li-hue, var(--hue)); color: white; font: 700 10.5px/18px var(--sans); text-align: center;
+}
+
+.amp-quote { margin: 10px 4px 10px; padding: 2px 0 2px 14px; border-left: 3px solid var(--hue); text-align: left; }
+.amp-quote p { font: italic 400 15.5px/1.34 var(--serif); margin: 0; color: var(--ink); text-indent: 0 !important; }
+.amp-quote cite { display: block; margin-top: 5px; font: 600 10.5px/1 var(--label); font-style: normal; letter-spacing: .12em; text-transform: uppercase; color: var(--ink-3); }
+
+.amp-table { margin: 10px 0; }
+.amp-table-title { text-align: center; font: 400 12px/1.3 var(--serif); font-variant: small-caps; letter-spacing: .05em; margin-bottom: 4px; }
+.amp-table table { width: 100%; border-collapse: collapse; font: 400 12px/1.3 var(--serif); text-align: left; }
+.amp-table thead th { font-weight: 400; font-variant: small-caps; letter-spacing: .04em; border-top: 1.3px solid var(--ink); border-bottom: .8px solid var(--ink); padding: 3px 4px; }
+.amp-table td { padding: 2.5px 4px; vertical-align: top; }
+.amp-table tbody tr:last-child td { border-bottom: 1.3px solid var(--ink); padding-bottom: 4px; }
+.amp-table td:first-child { font-style: italic; }
+.amp-list ul { margin: 0 0 6px; padding-left: 16px; }
+.amp-list li { margin: 0 0 3px; }
+
+.amp-code pre {
+  margin: 0; font: 400 10.6px/1.45 var(--mono); color: var(--code-ink); white-space: pre; text-align: left; overflow: hidden;
+}
+.amp-code .k { color: color-mix(in srgb, var(--h-blue) 85%, var(--shade)); }
+.amp-code .s { color: color-mix(in srgb, var(--h-green) 85%, var(--shade)); }
+.amp-code .c { color: var(--ink-3); font-style: italic; }
+.amp-image img { display: block; margin: 0 auto; }
+.amp-strip { display: grid; gap: 6px; }
+.amp-strip figure { margin: 0; }
+.amp-strip img { display: block; width: 100%; border: 1px solid var(--line); border-radius: 3px; box-shadow: 0 1px 3px rgba(0,0,0,.06); }
+.amp-strip figcaption { margin-top: 3px; font: 600 9.5px/1 var(--mono); color: var(--ink-3); text-align: center; }
+.amp-image .cap, .amp-strip-cap { margin-top: 6px; font: italic 400 12px/1.3 var(--serif); color: var(--ink-2); text-align: center; }
+
+/* ---------- footer ---------- */
+.amp-footer {
+  position: absolute; display: flex; justify-content: space-between;
+  font: 600 10px/1 var(--label); letter-spacing: .12em; text-transform: uppercase; color: var(--ink-3);
+}

@@ -1,0 +1,164 @@
+# amp explaining amp: the self-referential example page.
+meta:
+  id: amp-self-intro
+  title: amp · Architecture Motion Page Blueprint
+  duration: 24
+  theme: plush-academic
+  seed: 7
+
+header:
+  kicker: "**Claude Skill** · arch-motion-page"
+  meta: v0.1 · October 2026
+  title: Architecture Motion Page Blueprint
+  sweep: Motion
+  stamp: { text: "made by amp · from its own spec · ", center: amp }
+  subtitle: How one YAML spec becomes an animated A4 blueprint -- and how this page was made by the skill it explains.
+
+brand:
+  image: assets/group.png
+  wordmark: amp
+  tagline: Architecture Motion Page
+  blurb: A Claude skill that compiles a product brief into a one-page, animated architecture blueprint.
+  stats:
+    - { icon: file, text: "1 spec → 3 outputs" }
+    - { icon: timeline, text: "1 paused, seekable timeline" }
+    - { icon: check, text: "0 wall-clock reads" }
+
+figure:
+  archetype: tiered
+  label: The amp pipeline
+  caption: >-
+    The amp pipeline. A Director reads the brief and dispatches six specialists; each hands its work to a
+    shared substrate -- spec, themes, layout compilers, one GSAP timeline -- that emits the page, a poster
+    and an MP4. The dashed edge is the review loop: critique the HTML, edit the spec, rebuild.
+  tiers:
+    - nodes:
+        - { id: director, title: Director, sub: "plans the page, dispatches the crew", hue: blue, mascot: assets/mascots/director.png }
+    - nodes:
+        - { id: researcher, title: Researcher, sub: "reads docs, repos and papers", hue: green, mascot: assets/mascots/researcher.png, to: spec }
+        - { id: writer, title: Writer, sub: "drafts headings, captions, columns", hue: yellow, mascot: assets/mascots/writer.png, to: spec }
+        - { id: layout, title: Layout, sub: "tiers into boxes, edges, routes", hue: sky, mascot: assets/mascots/layout.png, to: archetypes }
+        - { id: motion, title: Motion, sub: "build-in plus an ambient story", hue: magenta, mascot: assets/mascots/motion.png, to: timeline }
+        - { id: artist, title: Artist, sub: "palette, fonts, plush mascots", hue: orange, mascot: assets/mascots/artist.png, to: themes }
+        - { id: reviewer, title: Reviewer, sub: "screenshots, critiques, edits", hue: purple, mascot: assets/mascots/reviewer.png, to: outputs }
+    - nodes:
+        - { id: spec, title: spec.yaml, sub: "the single source of truth", hue: green, icon: file }
+        - { id: themes, title: Themes, sub: "CSS tokens + hue palette", hue: orange, icon: palette }
+        - { id: archetypes, title: Archetypes, sub: "pure layout compilers", hue: sky, icon: graph }
+        - { id: timeline, title: GSAP Timeline, sub: "one paused, seekable clock", hue: magenta, icon: timeline }
+        - { id: outputs, title: Outputs, sub: "page · poster · MP4", hue: outcome, outcome: true, mascot: assets/mascots/renderer.png }
+  feedback: { from: outputs, label: "Review loop: critique → edit spec → rebuild" }
+  bus_label: page.html  ·  poster.png  ·  video.mp4
+
+body:
+  columns:
+    - - type: abstract
+        text: >-
+          amp turns a product or technology brief into a single A4 architecture page that builds itself in
+          under three seconds, then keeps breathing with small, meaningful motion. A language model writes a
+          compact `spec.yaml`; deterministic compilers own every coordinate, colour and keyframe. One source
+          yields a live HTML page, a still poster and a HyperFrames MP4 -- and this page was produced by amp
+          from amp's own spec.
+      - type: section
+        heading: I. Introduction
+        text:
+          - >-
+            Architecture diagrams tend to fail in one of two ways: static and dense, or animated and vague.
+            The explainers people actually share sit in between -- one page that ==builds in reading order==,
+            then loops a short story while every frame stays readable.
+          - >-
+            amp packages that style as a reusable skill. The model decides *what* the system is: its tiers,
+            its nodes, the one story worth telling. Code decides *where* and *when*.
+      - type: cycle
+        title: The Review Loop
+        hue: purple
+        center: ≈ 5 s / pass
+        steps: [Build, Snapshot, Critique, Edit spec]
+      - type: section
+        level: 2
+        heading: A. The Spec Is the Product
+        text:
+          - >-
+            Everything on this page comes from `spec.yaml`: a header, a brand column, an archetype for the
+            figure, three columns of blocks and an optional story. Nothing in it is a pixel; text budgets are
+            checked at build time, so overflow is ==a build error, not a surprise==.
+    - - type: section
+        level: 2
+        heading: B. Compilers, Not Prompts
+        text:
+          - >-
+            Each archetype is a pure function from tiers to boxes, edges and packet routes. Themes are CSS
+            tokens plus a hue palette. The motion compiler turns the layout into one paused GSAP timeline --
+            the only clock the page has -- so any frame can be seeked, screenshotted or rendered exactly.
+      - type: code
+        title: spec.yaml (excerpt)
+        hue: green
+        text: |-
+          figure:
+            archetype: tiered
+            tiers:
+              - [director]
+              - [researcher, writer, layout,
+                 motion, artist, reviewer]
+              - [spec, themes, archetypes,
+                 timeline, outputs]
+            feedback: { from: outputs }
+      - type: section
+        heading: II. The Motion Grammar
+        text:
+          - >-
+            Motion has two phases. The **build** draws the page in data-flow order: header, root, buses,
+            workers, substrate, results, then the feedback edge. The **ambient** phase is a heartbeat --
+            the Director pulses, each worker swells as its packet lands, hand-offs flow into the
+            substrate and results travel back up the dashed loop.
+          - >-
+            Idle effects stay small and seeded: edges march, mascots bob, ==highlights redraw==.
+            Body text never moves.
+      - type: table
+        title: Table I. Motion inventory of this page
+        columns: [Effect, Phase, Timing]
+        rows:
+          - [Build-in, build, "0 → 3.0 s, reading order"]
+          - [Signal packets, story, 560 px/s along edges]
+          - [Heartbeat, story, "1.2 s, two workers a beat"]
+          - [Card breathing, story, +3.5% scale on arrival]
+          - [Neon wordmark, idle, "glow breathes, seeded"]
+          - [Mascot bob, idle, "1.9–2.8 s, seeded"]
+    - - type: quote
+        hue: magenta
+        text: If a frame isn't a good poster, the motion is lying.
+        by: "amp design rule #1"
+      - type: section
+        heading: III. The Review Loop
+        text:
+          - >-
+            amp screenshots the page at named moments, tiles them into a contact sheet and emits a fit
+            report: column fill, clipped titles, collisions. Critique is written against a rubric, applied to
+            the spec, and the page rebuilds in about a second. Because every rubric item maps to a spec field,
+            fixes stay declarative and the next pass is reproducible.
+      - type: filmstrip
+        frames:
+          - { src: assets/filmstrip/f1.png, label: t = 0.9 s }
+          - { src: assets/filmstrip/f2.png, label: t = 1.6 s }
+          - { src: assets/filmstrip/f3.png, label: t = 3.2 s }
+        caption: "**Fig. 2.** This page's own build-in, captured by the review loop."
+      - type: section
+        heading: IV. One Source, Three Outputs
+        text:
+          - >-
+            The page is already a HyperFrames composition: a fixed duration, one registered timeline, local
+            fonts and ==no wall-clock reads==. Rendering the MP4 is a single container run, done only after
+            the HTML is approved. Published as one HTML file, the page centres and scales to any window.
+      - type: takeaways
+        title: Key Takeaways
+        hue: blue
+        items:
+          - One spec, three outputs -- page, poster and MP4.
+          - Layout and motion are compiled, never improvised.
+          - After the build, every frame is a valid poster.
+          - Review at the HTML stage; render video last.
+
+footer:
+  left: amp · arch-motion-page
+  center: Built by amp from examples/self-intro/spec.yaml
+  right: Page 1 / 1

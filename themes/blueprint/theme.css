@@ -1,0 +1,62 @@
+/* blueprint: layered on plush-academic. Only tokens and the few rules that read differently on dark paper. */
+
+:root {
+  --paper: #0b2545;
+  --ink: #eef5ff;
+  --ink-2: #bcd0ea;
+  --ink-3: #7d9bc4;
+  --line: rgba(150, 190, 240, .26);
+  --panel: rgba(120, 170, 240, .05);
+  --panel-dot: rgba(150, 190, 240, .14);
+  --card: #0f2f57;
+  --tint: #0f2f57;
+  --shade: #ffffff;
+  --desk: #061529;
+  --code-bg: rgba(140, 180, 240, .14);
+  --code-ink: #dbe8fb;
+  --glow-a: rgba(90, 160, 255, .34);
+  --glow-b: rgba(150, 110, 255, .14);
+  --mark-a: 50%;
+  --label: var(--mono);
+  --grid: rgba(120, 175, 245, .07);
+  --grid-major: rgba(120, 175, 245, .12);
+  --flow: #7fd3ff;
+}
+
+/* drafting grid: 24 px minor, 120 px major */
+.amp-page {
+  background-image:
+    linear-gradient(var(--grid-major) 1px, transparent 1px),
+    linear-gradient(90deg, var(--grid-major) 1px, transparent 1px),
+    linear-gradient(var(--grid) 1px, transparent 1px),
+    linear-gradient(90deg, var(--grid) 1px, transparent 1px);
+  background-size: 120px 120px, 120px 120px, 24px 24px, 24px 24px;
+  background-position: -1px -1px;
+}
+.amp-panel {
+  border: 1px solid rgba(150, 190, 240, .38);
+  background-image: none;
+  box-shadow: inset 0 0 0 5px rgba(11, 37, 69, .6), inset 0 0 0 6px rgba(150, 190, 240, .16);
+}
+.amp-title { font: 800 41px/1.06 var(--sans); letter-spacing: -.025em; }
+.amp-wordmark { font: 800 72px/1 var(--sans); letter-spacing: -.045em; }
+.amp-kicker, .amp-tagline, .amp-figlabel, .amp-buslabel, .amp-footer, .amp-box-title { letter-spacing: .08em; }
+
+.amp-card { box-shadow:
+    0 0 0 calc(var(--hl) * 2px) color-mix(in srgb, var(--hue) 70%, transparent),
+    0 0 calc(4px + var(--hl) * 26px) color-mix(in srgb, var(--hue) calc(10% + var(--hl) * 40%), transparent); }
+.t0 .amp-card { background: linear-gradient(90deg, color-mix(in srgb, var(--hue) 22%, var(--tint)), var(--card) 75%); }
+.t1 .amp-card::before { background: color-mix(in srgb, var(--hue) 18%, var(--tint)); }
+.amp-edges .e { stroke-width: 1.4; }
+.amp-edges .bus3 { stroke: var(--ink-3); }
+.amp-ring { border-color: rgba(150, 190, 240, .45); }
+.amp-packet { box-shadow: 0 0 0 3px color-mix(in srgb, var(--hue) 30%, transparent), 0 0 14px 4px color-mix(in srgb, var(--hue) 60%, transparent); }
+
+.amp-takeaways li::before { color: var(--paper); }
+.amp-box { background: color-mix(in srgb, var(--hue) 9%, var(--paper)); }
+.amp-strip img { border-color: rgba(150, 190, 240, .4); box-shadow: none; }
+.amp-quote p { color: var(--ink); }
+.amp-brand-art img { -webkit-mask-image: linear-gradient(#000 80%, transparent 100%); mask-image: linear-gradient(#000 80%, transparent 100%); }
+/* on navy the halo needs more light to read as neon */
+.amp-wordmark span::before { filter: blur(calc(5px + var(--g) * 7px)) saturate(1.7) brightness(1.5); }
+.amp-wordmark span::after { filter: blur(calc(1.6px + var(--g) * 1.6px)) saturate(1.5) brightness(1.4); }

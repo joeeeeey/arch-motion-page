@@ -1,0 +1,19 @@
+{
+  "name": "arch-motion-page",
+  "private": true,
+  "type": "module",
+  "description": "Spec-driven A4 architecture pages with GSAP motion, reviewed as HTML and rendered to MP4 via HyperFrames.",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/joeeeeey/arch-motion-page.git"
+  },
+  "scripts": {
+    "build": "node scripts/build.mjs",
+    "review": "node scripts/review.mjs"
+  },
+  "dependencies": {
+    "gsap": "3.15.0",
+    "yaml": "^2.5.0"
+  }
+}
