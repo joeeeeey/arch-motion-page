@@ -101,12 +101,15 @@
 - **Docker**，用于渲染 MP4，也用于中文字体子集化（中文页面和 `--single` 构建）。HyperFrames 和 fonttools 都只在容器里运行，不会装到宿主机上。
 
 ```bash
-# Claude Code：个人 skill（所有项目可用）
+# 任意 agent（Claude Code、Codex、Cursor……）：用 skills.sh 的 skills CLI 安装
+npx skills add joeeeeey/arch-motion-page            # 加 -g 则所有项目可用
+
+# 或手动安装：Claude Code 个人 skill（所有项目可用）
 git clone https://github.com/joeeeeey/arch-motion-page ~/.claude/skills/arch-motion-page
 cd ~/.claude/skills/arch-motion-page && npm install
 ```
 
-想和团队共享，就克隆到项目的 `.claude/skills/arch-motion-page`。其他支持 `SKILL.md` 格式的 agent，把同一个目录放进它们自己的 skills 目录即可。
+`npx skills add` 会询问要装给哪些 agent，并把 skill 放进各自的 skills 目录：Claude Code 是 `.claude/skills/`，加 `-g` 则是 `~/.claude/skills/`。它不会执行 `npm install`，skill 的 setup 步骤会让 agent 在第一次使用时自己装好。想手动和团队共享，就克隆到项目的 `.claude/skills/arch-motion-page`。其他支持 `SKILL.md` 格式的 agent，把同一个目录放进它们自己的 skills 目录即可。
 
 ## 快速上手（不经过 agent）
 

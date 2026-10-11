@@ -1,9 +1,16 @@
 ---
 name: arch-motion-page
 description: Compile a product or technology architecture into a one-page animated A4 blueprint (live HTML, poster PNG, HyperFrames MP4) from a small YAML spec. Use for animated architecture explainers, "A4 architecture page with motion", HyperFrames architecture videos, or turning a system analysis into a motion one-pager.
+license: MIT
+metadata:
+  author: Joey (github.com/joeeeeey)
 ---
 
 # arch-motion-page (amp)
+
+By **Joey** ([@joeeeeey](https://github.com/joeeeeey)) · [live demo](https://joeeeeey.github.io/arch-motion-page/) · [repo](https://github.com/joeeeeey/arch-motion-page) · MIT
+
+[![The example page drawing itself, then a Director card dispatching packets to six specialist cards](https://raw.githubusercontent.com/joeeeeey/arch-motion-page/gh-pages/media/skills-sh-hero.webp)](https://joeeeeey.github.io/arch-motion-page/)
 
 amp turns an architecture analysis into one A4 page. The page has a header, a brand column, a three-tier figure and three columns of academic-style text. It builds itself in about 3 s, then loops a heartbeat story: the root pulses, signal packets travel the edges, each worker card swells as its packet lands, and the hand-off flows into the substrate. Edges march, mascots bob and a neon gradient wordmark breathes. After the build, every frame is a usable poster. The default skin is white paper with black type (`plush-academic`); `blueprint` is the navy alternative. Pages can be English or Chinese (`meta.lang: zh`).
 

@@ -94,12 +94,15 @@ Requirements:
 - **Docker**, for MP4 rendering and for Chinese font subsetting (Chinese pages and `--single` builds). The skill never runs HyperFrames or fonttools on the host.
 
 ```bash
-# Claude Code: personal skill (available in every project)
+# Any agent (Claude Code, Codex, Cursor, …), via the skills CLI from skills.sh
+npx skills add joeeeeey/arch-motion-page            # add -g to install for every project
+
+# Or by hand: Claude Code personal skill (available in every project)
 git clone https://github.com/joeeeeey/arch-motion-page ~/.claude/skills/arch-motion-page
 cd ~/.claude/skills/arch-motion-page && npm install
 ```
 
-To share it with a team, clone it into a project's `.claude/skills/arch-motion-page` instead. Other agents that read the `SKILL.md` format can use the same folder from their own skills directory.
+`npx skills add` asks which agents to install for and puts the skill in each one's skills folder: `.claude/skills/` for Claude Code, or `~/.claude/skills/` with `-g`. It does not run `npm install`; the skill's setup step has the agent run it on first use. To share it with a team by hand, clone it into a project's `.claude/skills/arch-motion-page` instead. Other agents that read the `SKILL.md` format can use the same folder from their own skills directory.
 
 ## Quick start (without an agent)
 
