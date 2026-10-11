@@ -3,7 +3,9 @@
    for the review loop.
 
    Modes (query string, standalone only):
-     (none)      autoplay + loop, for humans opening the file
+     (none)      autoplay for humans opening the file: the build plays once, then the live window
+                 [loopFrom, duration] loops; its two ends are the same frame, so it never restarts visibly
+     ?once       play everything once and hold the last frame
      ?t=12.5     seek and hold a frame
      ?poster     hold the poster frame (end of build)
      ?fit        start with the whole page fitted to the window
@@ -11,7 +13,7 @@
      ?debug      outline every fit-report offender in red
    Present mode (any human view, i.e. not ?review and not automated): the page sits centred on a
    desk and scales down to the window width. Keys: Space play/pause, F fit page, arrows step 1 s,
-   Home restart. prefers-reduced-motion holds the poster frame.
+   Home replay from the build. prefers-reduced-motion holds the poster frame.
    Under HyperFrames (registry pre-created, or navigator.webdriver) the timeline stays paused. */
 (function () {
   'use strict';
@@ -29,6 +31,15 @@
     if (op.m === 'fromTo') tl.fromTo(op.s, op.f, op.v, op.at);
     else if (op.m === 'to') tl.to(op.s, op.v, op.at);
     else if (op.m === 'set') tl.set(op.s, op.v, op.at);
+    else if (op.m === 'wave') tl.fromTo(op.s, op.f, wave(op), op.at);
+  }
+  // A sine wave f -> v -> f, `period` s long, from rest at op.at until it is cut off at its end (the
+  // composition end, possibly mid-wave). A pure function of time, so seeking stays deterministic.
+  function wave(op) {
+    var k = 2 * Math.PI * op.v.duration / op.period, v = { immediateRender: false }, p;
+    for (p in op.v) v[p] = op.v[p];
+    v.ease = function (x) { return 0.5 - 0.5 * Math.cos(k * x); };
+    return v;
   }
   // Pin the timeline length to the composition duration so HF and loops agree.
   // The page registers tl in window.__timelines with an inline script right after this one.
@@ -86,7 +97,7 @@
     });
     return {
       ok: issues.length === 0 && missing.length === 0,
-      duration: plan.duration, buildEnd: plan.buildEnd, poster: plan.poster,
+      duration: plan.duration, buildEnd: plan.buildEnd, poster: plan.poster, loopFrom: plan.loopFrom,
       ops: plan.ops.length, columns: cols, issues: issues, missingSelectors: missing, fonts: fontsOk, events: plan.events,
     };
   }
@@ -115,12 +126,18 @@
   });
 
   var present = params.has('present') || (!automated && !params.has('review')); // ?present forces it, for tests
-  if (present) stage();
+  var once = params.has('once'), loopFrom = plan.loopFrom || 0;
+  if (present) {
+    stage();
+    // After the first pass, keep looping the live window instead of rebuilding the page from blank.
+    // Seeks pause first, so stepping to the end never triggers the jump.
+    if (!once) tl.eventCallback('onComplete', function () { if (!tl.paused()) tl.play(loopFrom); });
+  }
 
   var still = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
   if (params.has('t')) api.seek(parseFloat(params.get('t')) || 0);
   else if (params.has('poster') || (present && still)) api.seek(plan.poster);
-  else if (present) { tl.repeat(-1); tl.play(0); }
+  else if (present) tl.play(0);
 
   // ---------------------------------------------------------------- present mode
   function stage() {
@@ -152,11 +169,12 @@
       if (e.metaKey || e.ctrlKey || e.altKey) return;
       var k = e.key;
       if (k === ' ') {
-        if (tl.paused() || !tl.isActive()) { tl.repeat(-1); tl.play(); } else tl.pause();
+        if (tl.paused() || !tl.isActive()) tl.play(tl.progress() === 1 ? (once ? 0 : loopFrom) : undefined);
+        else tl.pause();
       } else if (k === 'f' || k === 'F') { fit = !fit; layout(); }
       else if (k === 'ArrowRight' || k === 'ArrowLeft') {
         tl.pause(); tl.seek(Math.max(0, Math.min(plan.duration, tl.time() + (k === 'ArrowRight' ? 1 : -1))), false);
-      } else if (k === 'Home') { tl.repeat(-1); tl.play(0); }
+      } else if (k === 'Home') tl.play(0);
       else return;
       e.preventDefault();
     });

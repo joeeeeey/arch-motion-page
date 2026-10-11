@@ -126,9 +126,10 @@ spec.yaml ─▶ lib/spec.mjs                  validate, character budgets (CJK 
 ```
 
 The page registers its timeline at `window.__timelines[id]` and stays paused under HyperFrames, which seeks it frame by frame. For people, the same file autoplays in *present mode*:
+- **Playback:** the build plays once, then the live story loops seamlessly. The loop's two ends are the same frame, so the page never jumps back to blank while you read it.
 - **Layout:** centred on a desk, scaled to the window.
-- **Keys:** `Space` play/pause, `F` fit the whole page, `←` `→` step 1 s, `Home` restart.
-- **Query modes:** `?poster`, `?t=12.5`, `?fit` and `?debug`.
+- **Keys:** `Space` play/pause, `F` fit the whole page, `←` `→` step 1 s, `Home` replay the build.
+- **Query modes:** `?once` (play once and hold the last frame), `?poster`, `?t=12.5`, `?fit` and `?debug`.
 - **Reduced motion:** `prefers-reduced-motion` holds the poster frame.
 
 Start with **[SKILL.md](SKILL.md)** (the workflow the agent follows), then **[references/spec-schema.md](references/spec-schema.md)** (every spec field). For new skins, archetypes, languages and effects, see **[references/extending.md](references/extending.md)**.

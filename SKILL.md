@@ -64,10 +64,10 @@ spec.yaml ─▶ lib/spec.mjs (validate, budgets)
    - Read `review/contact.png` and the console fit report.
    - Zoom into the figure with `--zoom 288,148,752,520`, or into the hero with `--zoom 40,148,1000,520`.
    - Score against `references/review-rubric.md`, edit the spec, rebuild, and repeat.
-   - The page is done when the fit report says OK, columns fill 88–99%, and the rubric passes.
+   - The page is done when the fit report says OK, columns fill 88–99%, the review prints `loop seam … OK`, and the rubric passes.
 6. **Present or publish as HTML:**
-   - `out/index.html` autoplays and loops when opened. It sits centred on a desk at 1:1 when the window is wide enough and scales down to the window width otherwise.
-   - Keys: Space play/pause, F fit the whole page, ← → step 1 s, Home restart. `prefers-reduced-motion` holds the poster frame.
+   - `out/index.html` autoplays when opened: the build plays once, then the live story loops from `loopFrom` (about 3.4 s) to the end. Both ends of that window are the same frame, so the page never jumps back to blank. `?once` plays everything once and holds the last frame. It sits centred on a desk at 1:1 when the window is wide enough and scales down to the window width otherwise.
+   - Keys: Space play/pause (at the end it resumes the loop), F fit the whole page, ← → step 1 s, Home replay from the build. `prefers-reduced-motion` holds the poster frame.
    - `?fit` starts fitted, `?poster` shows the end-of-build frame, `?t=12.5` holds any frame, `?debug` outlines fit offenders, `?review` is the 1:1 top-left mode the review script uses.
    - To publish, build with `--single`. It writes `out/single/<id>[-<lang>].html` with scripts, subset fonts and images inlined (about 3–4 MB for the example), so it can be sent or hosted as one file. Check it with `review.mjs out --page single/<file> --present`.
 7. **Render (approval required):** `scripts/render.sh <workdir>/out [--output video.mp4] [--quality high]`. It runs `hyperframes lint`, `check` and `render` inside a container.
@@ -76,8 +76,8 @@ spec.yaml ─▶ lib/spec.mjs (validate, budgets)
 
 | Command | Purpose |
 |---|---|
-| `node scripts/build.mjs spec.yaml [--out dir] [--theme name] [--single]` | Compile the page. Prints language, build-in time, op count, packets and budget warnings. `--single` also writes one self-contained HTML file. |
-| `node scripts/review.mjs out [--times a,b] [--zoom x,y,w,h] [--scale 2] [--page f.html]` | Frames at named events, `contact.png` and `report.json`. `out-zh` reviews into `review-zh`. |
+| `node scripts/build.mjs spec.yaml [--out dir] [--theme name] [--single]` | Compile the page. Prints language, build-in time, loop window, op count, packets, budget warnings and loop-seam warnings. `--single` also writes one self-contained HTML file. |
+| `node scripts/review.mjs out [--times a,b] [--zoom x,y,w,h] [--scale 2] [--page f.html]` | Frames at named events, `contact.png`, `report.json` and the loop-seam pixel diff. `out-zh` reviews into `review-zh`. |
 | `node scripts/review.mjs out --present 1440x900,820x1180,1440x900:fit` | Also capture present mode (centred, scaled; `:fit` = whole page) as `present-WxH.png`. |
 | `node scripts/review.mjs out --burst 3:6:15` | Frame burst plus `burst.mp4`, to check motion smoothness without HyperFrames. |
 | `node scripts/review.mjs out --times 0.9,1.6,3.2 --thumb 320 --dest d` | Small frames for a `filmstrip` block (the page can show itself). |

@@ -135,9 +135,10 @@ spec.yaml ─▶ lib/spec.mjs                  校验、字数预算（中文字
 ```
 
 页面把时间线注册到 `window.__timelines[id]`。在 HyperFrames 下，时间线保持暂停，由 HyperFrames 逐帧 seek。给人看时，同一个文件以*演示模式*自动播放：
+- **播放**：构建动画只播一次，之后无缝循环播放“心跳故事”。循环的首尾是同一帧，所以看到一半时页面不会突然回到空白重来。
 - **布局**：居中放在桌面背景上，并按窗口缩放。
-- **按键**：`Space` 播放/暂停，`F` 整页适配，`←` `→` 步进 1 秒，`Home` 从头播放。
-- **查询参数**：`?poster`、`?t=12.5`、`?fit`、`?debug`。
+- **按键**：`Space` 播放/暂停，`F` 整页适配，`←` `→` 步进 1 秒，`Home` 重播构建动画。
+- **查询参数**：`?once`（只播一次并停在最后一帧）、`?poster`、`?t=12.5`、`?fit`、`?debug`。
 - **减弱动效**：`prefers-reduced-motion` 会停在海报帧。
 
 建议先读 **[SKILL.md](SKILL.md)**（agent 遵循的工作流），再读 **[references/spec-schema.md](references/spec-schema.md)**（spec 的每个字段）。新皮肤、新版式、新语言和新动效见 **[references/extending.md](references/extending.md)**。

@@ -1,6 +1,7 @@
 #!/usr/bin/env node
 // HTML-stage review: seek the built page to named moments in headless Chrome (CDP, no npm deps),
-// save full-page frames, a labelled contact sheet and the runtime fit report.
+// save full-page frames, a labelled contact sheet and the runtime fit report, and check the loop seam
+// (present mode jumps from the last frame back to loopFrom, so seam-end.png must equal seam-loop.png).
 //
 //   node scripts/review.mjs examples/self-intro/out [--times 0.5,2,9] [--burst 0:3:10] [--zoom x,y,w,h] [--scale 2]
 //                          [--thumb 320] [--dest dir] [--page file.html] [--present 1440x900,820x1180,1440x900:fit]
@@ -170,6 +171,12 @@ async function main() {
         frames.push({ t, label: names[t.toFixed(3)] || (t === buildInfo.poster ? 'poster' : ''), file: path.basename(f) });
       }
     }
+    // end first, then loopFrom: the same backwards jump the present-mode loop makes
+    const seamShots = buildInfo.loopFrom != null && !a.burst && !a.times;
+    if (seamShots) {
+      await shoot(buildInfo.duration, path.join(reviewDir, 'seam-end.png'));
+      await shoot(buildInfo.loopFrom, path.join(reviewDir, 'seam-loop.png'));
+    }
 
     // present mode: the page as a reader sees it, centred and scaled in a real window
     const shots = [];
@@ -205,9 +212,26 @@ async function main() {
     const sheetLoaded = c.once('Page.loadEventFired');
     await c.send('Page.navigate', { url: `http://127.0.0.1:${sheetServer.address().port}/contact.html` });
     await sheetLoaded;
-    sheetServer.close();
     const { data } = await c.send('Page.captureScreenshot', { format: 'png', clip: { x: 0, y: 0, width: sheetW, height: sheetH, scale: 1 } });
     fs.writeFileSync(path.join(reviewDir, 'contact.png'), Buffer.from(data, 'base64'));
+    // pixel diff of the seam frames, on the same origin as the contact sheet
+    const seam = seamShots && await c.eval(`(async () => {
+      const load = (src) => new Promise((ok, no) => { const i = new Image(); i.onload = () => ok(i); i.onerror = no; i.src = src; });
+      const px = (img) => { const cv = document.createElement('canvas'); cv.width = img.width; cv.height = img.height; const g = cv.getContext('2d'); g.drawImage(img, 0, 0); return g.getImageData(0, 0, cv.width, cv.height).data; };
+      const [a, b] = (await Promise.all([load('seam-end.png'), load('seam-loop.png')])).map(px);
+      let max = 0, n = 0;
+      for (let i = 0; i < a.length; i += 4) {
+        const d = Math.max(Math.abs(a[i] - b[i]), Math.abs(a[i + 1] - b[i + 1]), Math.abs(a[i + 2] - b[i + 2]));
+        if (d > max) max = d;
+        if (d > 12) n++;
+      }
+      return { maxDiff: max, pixels: n };
+    })()`);
+    sheetServer.close();
+    if (seam) {
+      Object.assign(seam, { from: buildInfo.duration, to: buildInfo.loopFrom, ok: seam.pixels === 0 });
+      fs.writeFileSync(path.join(reviewDir, 'report.json'), JSON.stringify({ ...report, seam }, null, 1));
+    }
 
     // console summary
     console.log(`review -> ${path.relative(process.cwd(), reviewDir)}  (${frames.length} frames + contact.png + report.json)`);
@@ -217,6 +241,7 @@ async function main() {
     for (const i of report.issues) console.log(`  ! ${i.kind}  ${i.where}  ${i.detail}`);
     for (const s of report.missingSelectors) console.log(`  ! missing selector ${s}`);
     for (const f of report.fonts) if (!f.loaded) console.log(`  ! font not loaded: ${f.family}`);
+    if (seam) console.log(`loop seam ${seam.from}s -> ${seam.to}s: ${seam.ok ? 'OK' : `! ${seam.pixels} px differ (max ${seam.maxDiff}); compare seam-end.png and seam-loop.png`}`);
   } finally {
     c.close();
     server.close();

@@ -129,11 +129,13 @@ export function build(specFile, opts = {}) {
     size: [GEOM.W, GEOM.H],
     buildEnd: plan.runtime.buildEnd,
     poster: plan.runtime.poster,
+    loopFrom: plan.runtime.loopFrom,
     ops: plan.runtime.ops.length,
     packets: plan.packets.length,
     events: plan.events,
     reviewTimes: reviewTimes(plan, spec.meta.duration),
     warnings: spec.warnings,
+    seam: plan.seam,
   };
   fs.writeFileSync(path.join(out, 'amp-build.json'), JSON.stringify({ ...meta, layout }, null, 1));
   return { out, meta };
@@ -158,9 +160,10 @@ if (process.argv[1] === fileURLToPath(import.meta.url)) {
   try {
     const { out, meta } = build(a._[0], { out: a.out, theme: a.theme, single: !!a.single });
     const shown = (f) => { const r = path.relative(process.cwd(), f); return r.startsWith('..') ? f : r; };
-    console.log(`built ${shown(out)}/index.html  ${meta.size.join('x')}  ${meta.duration}s  lang ${meta.lang}  build-in ${meta.buildEnd}s  ops ${meta.ops}  packets ${meta.packets}`);
+    console.log(`built ${shown(out)}/index.html  ${meta.size.join('x')}  ${meta.duration}s  lang ${meta.lang}  build-in ${meta.buildEnd}s  loop ${meta.loopFrom}-${meta.duration}s  ops ${meta.ops}  packets ${meta.packets}`);
     if (meta.single) console.log(`single ${shown(path.join(out, meta.single))}  ${(fs.statSync(path.join(out, meta.single)).size / 1048576).toFixed(1)} MB`);
     for (const w of meta.warnings) console.log(`  warn  ${w}`);
+    for (const s of meta.seam) console.log(`  warn  loop seam: ${s} is still moving at the loop start or past the end`);
   } catch (e) {
     console.error(e.message);
     process.exit(1);

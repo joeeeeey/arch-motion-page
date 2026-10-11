@@ -47,7 +47,8 @@ Score each item pass or fail. Fix all fails before rendering.
 - [ ] Marching edges stay quiet: dashes read as direction, not as a second set of packets.
 - [ ] The neon wordmark glows but the letters stay crisp; zoom the brand column to check.
 - [ ] At most one heading sweep and one highlighter redraw are visible at a time.
-- [ ] The last frame (`t = duration − .15`) is as clean as the poster, so loops and video ends look intentional.
+- [ ] The last frame (`t = duration − .15`) is as clean as the poster, so the video end looks intentional.
+- [ ] The review prints `loop seam … OK`: the frames at `duration` and `loopFrom` are pixel-identical, so present mode loops without a visible jump.
 
 **Copy:**
 - [ ] Every claim on the page is true for the system, and numbers match the implementation or the source docs.
